@@ -12,10 +12,10 @@ func main() {
 
 func getUserInput() string {
 	var userInput string
-	fmt.Scan(userInput)
+	fmt.Scan(&userInput)
 	return userInput
 }
 
 func convertCurrency(sum float64, originalCurrency string, targetCurrency string) float64 {
-
+	return 0
 }
