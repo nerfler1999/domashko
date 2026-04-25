@@ -18,17 +18,17 @@ func main() {
 		cur, err := getOriginalCurrency()
 		if err != nil {
 			fmt.Println(err)
-			return
+			continue
 		}
 		sum, err := getSum()
 		if err != nil {
 			fmt.Println(err)
-			return
+			continue
 		}
 		targ, err := getTargetCurrency(cur)
 		if err != nil {
 			fmt.Println(err)
-			return
+			continue
 		}
 		total := convertCurrency(sum, cur, targ)
 		fmt.Println(total)
