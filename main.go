@@ -5,13 +5,6 @@ import (
 	"fmt"
 )
 
-const usdEur = 0.85                //на 21.04.2026
-const usdRub = 75.14               //на 21.04.2026
-const eurRub = 1 / usdEur * usdRub //на 21.04.2026
-const eurUsd = 1.17
-const rubUsd = 0.013
-const rubEur = 0.011
-
 func main() {
 	for {
 		fmt.Println("*Конвертер валют*")
@@ -83,24 +76,32 @@ func getTargetCurrency(origCur string) (string, error) {
 
 func convertCurrency(sum float64, originalCurrency string, targetCurrency string) float64 {
 	var convertedCurrency float64
+	constMap := map[string]float64{
+		"usdEur": 0.85,
+		"usdRub": 75.14,
+		"eurRub": 83.06,
+		"eurUsd": 1.17,
+		"rubUsd": 0.013,
+		"rubEur": 0.011,
+	}
 	switch {
 	case originalCurrency == "USD" && targetCurrency == "EUR":
-		convertedCurrency = sum * usdEur
+		convertedCurrency = sum * constMap["usdEur"]
 		return convertedCurrency
 	case originalCurrency == "USD" && targetCurrency == "RUB":
-		convertedCurrency = sum * usdRub
+		convertedCurrency = sum * constMap["usdRub"]
 		return convertedCurrency
 	case originalCurrency == "EUR" && targetCurrency == "RUB":
-		convertedCurrency = sum * eurRub
+		convertedCurrency = sum * constMap["eurRub"]
 		return convertedCurrency
 	case originalCurrency == "EUR" && targetCurrency == "USD":
-		convertedCurrency = sum * eurUsd
+		convertedCurrency = sum * constMap["eurUsd"]
 		return convertedCurrency
 	case originalCurrency == "RUB" && targetCurrency == "USD":
-		convertedCurrency = sum * rubUsd
+		convertedCurrency = sum * constMap["rubUsd"]
 		return convertedCurrency
 	case originalCurrency == "RUB" && targetCurrency == "EUR":
-		convertedCurrency = sum * rubEur
+		convertedCurrency = sum * constMap["rubEur"]
 		return convertedCurrency
 	}
 	return convertedCurrency
