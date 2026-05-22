@@ -75,37 +75,19 @@ func getTargetCurrency(origCur string) (string, error) {
 }
 
 func convertCurrency(sum float64, originalCurrency string, targetCurrency string) float64 {
-	var convertedCurrency float64
 	constMap := map[string]float64{
-		"usdEur": 0.85,
-		"usdRub": 75.14,
-		"eurRub": 83.06,
-		"eurUsd": 1.17,
-		"rubUsd": 0.013,
-		"rubEur": 0.011,
+		"USD-EUR": 0.85,
+		"USD-RUB": 75.14,
+		"EUR-RUB": 83.06,
+		"EUR-USD": 1.17,
+		"RUB-USD": 0.013,
+		"RUB-EUR": 0.011,
 	}
-	switch {
-	case originalCurrency == "USD" && targetCurrency == "EUR":
-		convertedCurrency = sum * constMap["usdEur"]
-		return convertedCurrency
-	case originalCurrency == "USD" && targetCurrency == "RUB":
-		convertedCurrency = sum * constMap["usdRub"]
-		return convertedCurrency
-	case originalCurrency == "EUR" && targetCurrency == "RUB":
-		convertedCurrency = sum * constMap["eurRub"]
-		return convertedCurrency
-	case originalCurrency == "EUR" && targetCurrency == "USD":
-		convertedCurrency = sum * constMap["eurUsd"]
-		return convertedCurrency
-	case originalCurrency == "RUB" && targetCurrency == "USD":
-		convertedCurrency = sum * constMap["rubUsd"]
-		return convertedCurrency
-	case originalCurrency == "RUB" && targetCurrency == "EUR":
-		convertedCurrency = sum * constMap["rubEur"]
-		return convertedCurrency
-	}
-	return convertedCurrency
+
+	key := originalCurrency + "-" + targetCurrency
+	return sum * constMap[key]
 }
+
 func wantToRestart() bool {
 	var restart string
 	fmt.Println("Хотите повторить вычисление? (y/n)")
