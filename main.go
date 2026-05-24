@@ -6,6 +6,14 @@ import (
 )
 
 func main() {
+	constMap := map[string]float64{
+		"USD-EUR": 0.85,
+		"USD-RUB": 75.14,
+		"EUR-RUB": 83.06,
+		"EUR-USD": 1.17,
+		"RUB-USD": 0.013,
+		"RUB-EUR": 0.011,
+	}
 	for {
 		fmt.Println("*Конвертер валют*")
 		cur, err := getOriginalCurrency()
@@ -23,7 +31,7 @@ func main() {
 			fmt.Println(err)
 			continue
 		}
-		total := convertCurrency(sum, cur, targ)
+		total := convertCurrency(sum, cur, targ, &constMap)
 		fmt.Println(total)
 		restart := wantToRestart()
 		if restart != true {
@@ -74,18 +82,10 @@ func getTargetCurrency(origCur string) (string, error) {
 	return targetCurrency, nil
 }
 
-func convertCurrency(sum float64, originalCurrency string, targetCurrency string) float64 {
-	constMap := map[string]float64{
-		"USD-EUR": 0.85,
-		"USD-RUB": 75.14,
-		"EUR-RUB": 83.06,
-		"EUR-USD": 1.17,
-		"RUB-USD": 0.013,
-		"RUB-EUR": 0.011,
-	}
+func convertCurrency(sum float64, originalCurrency string, targetCurrency string, constMap *map[string]float64) float64 {
 
 	key := originalCurrency + "-" + targetCurrency
-	return sum * constMap[key]
+	return sum * (*constMap)[key]
 }
 
 func wantToRestart() bool {
